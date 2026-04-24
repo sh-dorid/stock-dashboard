@@ -3,8 +3,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area 
 } from 'recharts';
 import { 
-  Search, Bell, User, Star, ArrowUpRight, ArrowDownRight, 
-  Loader2, Activity, Globe, Newspaper, LayoutGrid, TrendingUp
+  Search, Bell, User, Activity, Newspaper, BarChart3
 } from 'lucide-react';
 import { getStockNews, getStockDataFromGoogle } from './services/stockApi';
 
