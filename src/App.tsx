@@ -3,7 +3,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area 
 } from 'recharts';
 import { 
-  Search, Bell, User, Activity, Newspaper, BarChart3
+  Search, Bell, User, Activity, Newspaper
 } from 'lucide-react';
 import { getStockNews, getStockDataFromGoogle } from './services/stockApi';
 
@@ -24,7 +24,7 @@ function App() {
   const [watchlistPrices, setWatchlistPrices] = useState<{ [key: string]: { price: string, change: string, up: boolean } }>({});
 
   const fetchWatchlistPrices = async () => {
-    const names = Object.keys(STOCK_MAP).slice(0, 6); // 상위 6개만
+    const names = Object.keys(STOCK_MAP).slice(0, 6);
     for (const name of names) {
       try {
         const symbolCode = STOCK_MAP[name];
@@ -33,24 +33,23 @@ function App() {
         if (data && data.length > 0) {
           const lastPrice = data[data.length - 1].value;
           const firstPrice = data[0].value;
-          const changeVal = ((lastPrice - firstPrice) / firstPrice * 100).toFixed(1);
+          const diff = lastPrice - firstPrice;
+          const changeRatio = (diff / firstPrice) * 100;
           setWatchlistPrices(prev => ({
             ...prev,
             [name]: {
               price: lastPrice.toLocaleString(),
-              change: `${changeVal > 0 ? '+' : ''}${changeVal}%`,
+              change: `${changeRatio > 0 ? '+' : ''}${changeRatio.toFixed(1)}%`,
               up: lastPrice >= firstPrice
             }
           }));
         }
-        // 무료 API 제한을 고려한 짧은 지연 (선택 사항)
         await new Promise(resolve => setTimeout(resolve, 500));
       } catch (e) { console.error(e); }
     }
   };
 
   const fetchData = async (input: string) => {
-    // ... 기존 fetchData 로직 유지
     setIsLoading(true);
     try {
       const symbolCode = STOCK_MAP[input] || input;
@@ -61,10 +60,11 @@ function App() {
         setChartData(dailyData);
         const lastPrice = dailyData[dailyData.length - 1].value;
         const firstPrice = dailyData[0].value;
-        const changeVal = ((lastPrice - firstPrice) / firstPrice * 100).toFixed(2);
+        const diff = lastPrice - firstPrice;
+        const changeRatio = (diff / firstPrice) * 100;
         setPriceInfo({
           price: lastPrice.toLocaleString(),
-          change: `${changeVal > 0 ? '+' : ''}${changeVal}%`,
+          change: `${changeRatio > 0 ? '+' : ''}${changeRatio.toFixed(2)}%`,
           up: lastPrice >= firstPrice
         });
       }
@@ -183,7 +183,7 @@ function App() {
 
             <div style={{ width: '100%', height: 400, marginTop: '1rem' }}>
               {isLoading ? (
-                <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyCenter: 'center', background: 'var(--bg-card)', borderRadius: 12 }} className="animate-pulse">
+                <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-card)', borderRadius: 12 }} className="animate-pulse">
                    <p style={{ width: '100%', textAlign: 'center' }}>Loading live market data...</p>
                 </div>
               ) : (
