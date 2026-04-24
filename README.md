@@ -1,73 +1,66 @@
-# React + TypeScript + Vite
+# 📈 StockView: 통합 주식 대시보드
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**StockView**는 국내외 주식 시세, 차트 분석, 그리고 관련 뉴스를 한눈에 파악할 수 있는 고성능 통합 주식 현황판 서비스입니다. 
+현대적인 금융 거래소 스타일의 다크 모드 UI와 실시간 데이터 연동을 통해 직관적인 투자 환경을 제공합니다.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ 주요 기능
 
-## React Compiler
+### 1. 실시간 주가 차트 및 시세
+- **실시간 데이터 연동**: Yahoo Finance 및 Google Finance 데이터를 활용하여 국내(KOSPI/KOSDAQ) 및 해외(NASDAQ/NYSE) 주식 시세를 실시간으로 제공합니다.
+- **인터랙티브 차트**: Recharts를 사용하여 최근 30일간의 주가 추이를 시각화하며, Y축 자동 스케일링을 통해 정확한 변동 폭을 확인할 수 있습니다.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. 스마트 종목 검색
+- **통합 검색 지원**: 종목 코드(예: `005930`) 또는 종목명(예: `삼성전자`, `테슬라`)을 입력하여 즉시 대시보드를 전환할 수 있습니다.
+- **Watchlist**: 주요 관심 종목의 시세와 등락률을 좌측 패널에서 한눈에 모니터링할 수 있습니다.
 
-## Expanding the ESLint configuration
+### 3. 실시간 경제 뉴스 피드
+- **NewsAPI 연동**: 현재 분석 중인 종목과 관련된 최신 글로벌/국내 경제 뉴스를 실시간으로 수집하여 제공합니다.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 4. 전문 거래소 스타일 UI
+- **프리미엄 다크 테마**: 가독성이 뛰어난 네온 악센트 기반의 다크 테마 레이아웃을 적용했습니다.
+- **글래스모피즘 디자인**: 현대적인 금융 플랫폼 느낌을 주는 카드 시스템과 부드러운 애니메이션 피드백을 포함합니다.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠 기술 스택
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Frontend**: React (TypeScript), Vite
+- **Styling**: Vanilla CSS (CSS Modules 컨셉)
+- **Charts**: Recharts
+- **Icons**: Lucide React
+- **API**: Yahoo Finance API (via AllOrigins Proxy), NewsAPI
+
+---
+
+## 🚀 시작하기
+
+### 1. API 키 설정
+프로젝트 루트 폴더에 `.env` 파일을 생성하고 아래 키를 입력하세요.
+```env
+VITE_ALPHA_VANTAGE_KEY=발급받은_키
+VITE_NEWS_API_KEY=발급받은_키
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. 설치 및 실행
+```bash
+# 의존성 설치
+npm install
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 개발 서버 실행
+npm run dev
 ```
+
+---
+
+## 📅 로드맵
+- [ ] 국내 100대 기업 재무제표(DART API) 실데이터 연동
+- [ ] 실시간 가격 알림(Push Notification) 기능
+- [ ] 사용자 커스텀 Watchlist 저장 기능 (Firebase)
+- [ ] 모바일 반응형 최적화
+
+---
+
+## 📄 라이선스
+이 프로젝트는 교육 및 개인 학습용으로 제작되었습니다. 모든 주가 데이터의 책임은 데이터 제공처에 있으며, 투자 결과에 대한 책임은 지지 않습니다.
